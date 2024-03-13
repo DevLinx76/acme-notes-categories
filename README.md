@@ -51,19 +51,68 @@ Using what we have learned about Express and SQL, we will build out a RESTFUL AP
 - CREATE the table `notes`...
 
 ### 4. Seed some data into the Database
-...
+```sql
+-- Insert sample categories
+INSERT INTO categories (name) VALUES ('SQL'), ('Express'), ('Shopping');
 
+-- Insert sample notes, associating them with categories
+INSERT INTO notes (txt, ranking, category_id) VALUES
+('Learn Express', 5, (SELECT id FROM categories WHERE name = 'Express')),
+('Implement CRUD operations', 4, (SELECT id FROM categories WHERE name = 'Express')),
+('Understand foreign keys', 4, (SELECT id FROM categories WHERE name = 'SQL')),
+('Prepare grocery list', 3, (SELECT id FROM categories WHERE name = 'Shopping'));
+```
 ### 5. Create your express server and listen
-...
+
+Set up your Express server to listen for incoming requests. Use the following code snippet to import Express, instantiate the app, and listen on a specified port:
+
+```javascript
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(express.json());
+app.use(require('morgan')('dev'));
+
+app.listen(port, () => console.log(`Listening on port ${port}`));
+```
 
 ### 6. Create your API route layouts
-...
+
+Define the routes for your application. These routes will include endpoints to perform CRUD operations on categories and notes. Ensure to implement the logic for each route using async handlers:
+
+```javascript
+app.get('/api/categories', async (req, res) => { /* logic */ });
+app.get('/api/notes', async (req, res) => { /* logic */ });
+app.post('/api/notes', async (req, res) => { /* logic */ });
+app.put('/api/notes/:id', async (req, res) => { /* logic */ });
+app.delete('/api/notes/:id', async (req, res) => { /* logic */ });
+```
 
 ### 7. Fill your routes with appropriate logic and test them out with curl as you go
-...
 
+Implement the necessary logic for each route to interact with your database. This involves performing CRUD operations—creating, reading, updating, and deleting data. Here's an example of how you might set up a route to fetch all categories:
+
+```javascript
+app.get('/api/categories', async (req, res) => {
+    try {
+        const { rows } = await db.query('SELECT * FROM categories');
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+```
 ### 8. In addition to curl, test your routes using Postman
-...
+
+Once you've implemented your API routes, it's important to test them to ensure they're working as expected. You can use Curl for quick command-line tests. For example, to test fetching all categories:
+
+```bash
+curl http://localhost:3000/api/categories
+```
+
+For a more comprehensive testing experience, Postman allows you to easily test your API endpoints. In Postman, create a new request for each of your endpoints, select the appropriate HTTP method, and, if needed, add request bodies for POST, PUT, or DELETE operations. This approach lets you thoroughly test the functionality and error handling of your API.
 
 ## 9. Final Result
 
