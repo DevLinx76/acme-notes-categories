@@ -115,8 +115,12 @@ curl http://localhost:3000/api/categories
 
 For a more comprehensive testing experience, Postman allows you to easily test your API endpoints. In Postman, create a new request for each of your endpoints, select the appropriate HTTP method, and, if needed, add request bodies for POST, PUT, or DELETE operations. This approach lets you thoroughly test the functionality and error handling of your API.
 
-## 9. Final Result
+### Additional Resources
 
-...
+For more detailed information on using Postman for API testing, refer to the official Postman documentation. Postman is a powerful tool for testing API endpoints, allowing you to easily create, share, test, and document APIs.
+
+- [Postman Documentation](https://learning.postman.com/docs/getting-started/introduction/)
+
+This resource is invaluable for developers looking to deepen their understanding of API testing and development, providing guides, tutorials, and best practices for using Postman effectively.
 
 Remember to test your routes thoroughly and discuss the outcomes with your team. Happy coding!
