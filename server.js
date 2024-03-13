@@ -36,7 +36,10 @@ app.get('/api/notes', async (req, res, next) => {
 app.post('/api/notes', async (req, res, next) => {
     try {
         const SQL = 'INSERT INTO notes(txt, category_id) VALUES($1, $2) RETURNING *';
-        const response = await client.query(SQL, [req.body.txt, req.body.category_id]);
+        const response = await client.query(SQL, [
+            req.body.txt, 
+            req.body.category_id
+        ]);
         res.send(response.rows[0]);
     } catch (ex) {
         next(ex)
@@ -47,7 +50,12 @@ app.post('/api/notes', async (req, res, next) => {
 app.put('/api/notes/:id', async (req, res, next) => {
     try {
         const SQL = 'UPDATE notes SET txt=$1, ranking=$2, category_id=$3, updated_at= now() WHERE id=$4 RETURNING *';
-        const response = await client.query(SQL, [req.body.txt, req.body.category_id, req.params.id]);
+        const response = await client.query(SQL, [
+            req.body.txt, 
+            req.body.ranking, 
+            req.body.category_id, 
+            req.params.id
+        ]);        
         res.send(response.rows[0]);
     } catch (ex) {
         next(ex)
@@ -58,7 +66,9 @@ app.put('/api/notes/:id', async (req, res, next) => {
 app.delete('/api/notes/:id', async (req, res, next) => {
     try {
         const SQL = 'DELETE FROM notes WHERE id=$1';
-        const response = await client.query(SQL, [req.params.id])
+        const response = await client.query(SQL, [
+            req.params.id
+        ])
         res.send(response.rows[0]);
     } catch (ex) {
         next(ex)
