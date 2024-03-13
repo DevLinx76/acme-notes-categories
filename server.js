@@ -76,6 +76,7 @@ app.delete('/api/notes/:id', async (req, res, next) => {
 });
 
 // 404 handler
+
 const init = async () => {
     await client.connect();
     let SQL = `
@@ -93,8 +94,11 @@ const init = async () => {
                 txt VARCHAR(255) NOT NULL,
                 category_id INTEGER REFERENCES categories(id) NOT NULL
             );
-        ;
+        `;
     
+    await client.query(SQL);
+    console.log('tables created');
+    SQL = `
     INSERT INTO categories(name) VALUES('SQL');
     INSERT INTO categories(name) VALUES('Express');
     INSERT INTO categories(name) VALUES('Shopping');
