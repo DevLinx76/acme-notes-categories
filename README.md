@@ -1,4 +1,5 @@
 # acme-notes-categories
+
 # Block 33: Foreign Keys (Guided Practice)
 
 ## Learning Teams: Connecting
